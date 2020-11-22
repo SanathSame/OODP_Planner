@@ -1,12 +1,15 @@
 package P1;
 
 import java.io.Serializable;
-import java.util.*;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Index implements Serializable {
 	String course_id;
 	String index_id;
-	String timings;
+	String type;
+	ArrayList <Schedule> timings=new ArrayList<Schedule>();
 	int Vacancies;
 	ArrayList <Student> registered;
 	int no_waitlist;
@@ -15,6 +18,7 @@ public class Index implements Serializable {
 	public Index() {
 		course_id=null;
 		index_id=null;
+		type=null;
 		timings=null;
 		Vacancies=0;
 		no_waitlist=0;
@@ -22,14 +26,15 @@ public class Index implements Serializable {
 		Waitlist=new ArrayList<Student>();
 	}
 	
-	public Index(String coursecode,String id,String sch,int slot) {
+	public Index(String coursecode,String id,String typ,int slot, ArrayList<Schedule> sch) {
 		course_id=coursecode;
 		index_id=id;
-		timings=sch;
+		type=typ;
 		Vacancies=slot;
 		no_waitlist=0;
 		registered=new ArrayList<Student>();
 		Waitlist=new ArrayList<Student>();
+		timings=sch;
 	}
 	
 	public String getCourseId() {
@@ -48,11 +53,11 @@ public class Index implements Serializable {
 		index_id=iId;
 	}
 	
-	public String getSchedule() {
+	public ArrayList<Schedule> getSchedule() {
 		return timings;
 	}
 	
-	public void setSchdule(String sch) {
+	public void setSchdule(ArrayList<Schedule> sch) {
 		timings=sch;
 	}
 	

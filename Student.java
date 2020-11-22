@@ -1,12 +1,7 @@
 package P1;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Student extends User{
 	
@@ -15,7 +10,7 @@ public class Student extends User{
 	LocalDate accessPeriod_End;
 	ArrayList<Index> registered_index;
 	ArrayList<Index> waitlisted_index;
-	ArrayList<String> notifications;
+	String email;
 	
 	public Student() {
 		super(null,null,null,false);
@@ -24,17 +19,17 @@ public class Student extends User{
 		accessPeriod_End=null;
 		registered_index= new ArrayList<Index>();
 		waitlisted_index= new ArrayList<Index>();
-		notifications=new ArrayList<String>();
+		email = null;
 	}
-	public Student(String name,String un,String pw, String id, LocalDate ld, LocalDate ld1) {
+	
+	public Student(String name,String un,String pw, String id, LocalDate ld, LocalDate ld1,String Email) {
 		super(name,un,pw,false);
 		student_id = id;
 		accessPeriod_Start=ld;
 		accessPeriod_End=ld1;
 		registered_index= new ArrayList<Index>();
 		waitlisted_index= new ArrayList<Index>();
-		notifications=new ArrayList<String>();
-		binaryio.writeSerializedObject("students.dat",this);
+		email=Email;
 	}
 	
 	public String getName() {
@@ -93,12 +88,11 @@ public class Student extends User{
 		accessPeriod_End=Edate;
 	}
 	
-	public ArrayList<String> getNotifications(){
-		return notifications;
+	public String getEmail() {
+		return email;
 	}
-	
-	public void setNotifications(ArrayList<String> noti){
-		notifications=noti;
+
+	public void setEmail(String Email) {
+		email = Email;
 	}
-	
 }

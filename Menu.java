@@ -1,17 +1,75 @@
 package P1;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Menu {
 	private static Scanner scanner = new Scanner(System.in);
+	
+	public static void adminmenu (String name){
+		
+		int choice = 0;
+		do{
+			System.out.println("Please select one of the options below: ");
+			System.out.println("1. Edit Access Period");
+			System.out.println("2. Add Student");
+			System.out.println("3. Add Course");
+			System.out.println("4. Update Existing Course");
+			System.out.println("5. Check Vacancies Available");
+			System.out.println("6: Print Students In Index");
+			System.out.println("7: Print Students In Course");
+			System.out.println("8. Log Out");
+			while (!scanner.hasNextInt()) 
+			{
+				scanner.next();
+				System.out.println("Please enter valid option:");
+			}
+			choice = scanner.nextInt();
+			
+			switch (choice) 
+			{
+			case 1:
+				//adminController.setAccessPeriod();
+				break;
+				
+			case 2:
+				adminController.addStudent();
+				break;
+				
+			case 3:
+				adminController.addCourse();
+				break;
+				
+			case 4:
+				adminController.updateCourse();
+				break;
+				
+			case 5:
+				adminController.printVacancy(); //printVacancy method copied from student Controller.
+				break;
+				
+			case 6:
+				adminController.printIndexStudents();
+				break;
+			case 7:
+				adminController.printCourseStudents();
+				break;
+			case 8:
+				appclass1.login();
+				break;
+			default:
+				System.out.println("Please enter valid option:");
+				break;
+				
+			}
+		} while (true);
+	}
 	
 	public static void studentmenu(String name) {
 		if(!studentControler.isAccessPeriod(name))
 			return;
 		int choice=0;
 		do {
-			studentControler.displayNotification(name);
 			System.out.println("Please select one of the options below: ");
 			System.out.println("1. Register Course");
 			System.out.println("2. Drop Course");
@@ -67,5 +125,5 @@ public class Menu {
 			}
 		} while (true);
 	}
-
+ 
 }

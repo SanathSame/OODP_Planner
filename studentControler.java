@@ -1,7 +1,5 @@
 package P1;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class studentControler {
@@ -22,9 +20,7 @@ public class studentControler {
 		else
 			return false;
 	}	
-	public static void displayNotification(String name) {
-		fileController.printStudent_Notifications(name);
-	}
+
 	
 	public static void registerCourse(String name) {
 		String[] course=fileController.getRegisterIndex();
@@ -33,16 +29,16 @@ public class studentControler {
 		int success=fileController.assignStudent(name,course);
 		
 		if(success==-1)
-			io.print("Sorry!! You have already been registered/waitlisted for course: " 
+			System.out.println("Sorry!! You have already been registered/waitlisted for course: " 
 					+course[1]);
 		else if(success==0)
-			io.print("You have been registered to course: " 
+			System.out.println("You have been registered to course: " 
 					+course[1]+ ", Index Id: "+course[0]);
 		else if(success==1)
-			io.print("You have been added to the waitinglist for course: " 
+			System.out.println("You have been added to the waitinglist for course: " 
 					+course[1]+ ", Index Id: "+course[0]);
 		else if(success==2)
-			io.print("Sorry!! There is a clash in your timetable for course: " 
+			System.out.println("Sorry!! There is a clash in your timetable for course: " 
 					+course[1]+ ", Index Id: "+course[0]);
 			
 	}
@@ -58,18 +54,22 @@ public class studentControler {
 		String cnfm = scanner.next();
 			
 		if(cnfm.toLowerCase().equals("yes")) {
-			fileController.unAssignStudent(name,course);
+			fileController.unAssignStudent(name,course,"drop");
 		}
 		else
 			dropCourse(name);
 	}
 
 	public static void printRegistered(String name) {
-		fileController.printStudentIndices(name,"reg");
+		int printed = fileController.printStudentIndices(name,"reg");
+		if(printed==-1)
+			System.out.println("You have not been registered to any courses yet!!!");
 	}
 
 	public static void printWaitlist(String name) {
-		fileController.printStudentIndices(name,"wait");
+		int printed = fileController.printStudentIndices(name,"wait");
+		if(printed==-1)
+			System.out.println("There are no waitlisted courses to display.");
 	}
 
 	public static void printVacancy() {
@@ -88,19 +88,24 @@ public class studentControler {
 	public static void changeIndex(String name) {
 		System.out.println("Choose course to change Index: ");
 		String[] course=fileController.getDropIndex(name);
-		if(course[0].equals(""))
+		if(course[0].equals(""))							//if nothing is choosen
 			return;
 		String[] index = fileController.getChangeIndex(course[1]);
+		
 		
 		if(index[1].equals("")) {
 			System.out.println("Sorry!! The requested index "+index[0]+" has no vacany!!");
 		}
 		else {
 			//if no clash
-			String[] drop= course;
-			String[] add= {index[0],course[1]};
-			fileController.unAssignStudent(name,drop);
-			fileController.assignStudent(name,add);
+			if(!fileController.clash(name,course)) {
+				String[] drop= course;
+				String[] add= {index[0],course[1]};
+				fileController.unAssignStudent(name,drop,"drop");
+				fileController.assignStudent(name,add);
+			}
+			else
+				System.out.println("Sorry!! The requested index "+index[0]+" clashes with your timetable!!");
 		}
 	}
 	
@@ -110,8 +115,45 @@ public class studentControler {
 		if(course[0].equals(""))
 			return;
 		
-		System.out.print("Enter Student ID to swop Index : ");
-		int cur = scanner.nextInt();
+		System.out.print("Enter Student Username to swop Index : ");
+		String user2 = scanner.next();
+		
+		System.out.print("Enter Student Password to swop Index : ");
+		String pw2 = scanner.next();
+		
+		String success=fileController.loginCheck(user2, pw2);
+		if(!success.equals("student")) {
+			System.out.println("Swop is not athourized!!");
+			swopIndex(name);
+		}
+		
+		String course2[] = {"",course[1]};
+		course2[0] = fileController.getIndexReg_Course(user2,course[1]);
+		
+		if(course2[0]==null) {
+			System.out.println("Student "+user2+" is not registered for the course "+course[1]);
+			return;
+		}
+		
+		
+		fileController.unAssignStudent(name, course,"swop");
+		fileController.unAssignStudent(user2, course2,"swop");
+		int done = fileController.assignStudent(name, course2);
+		if(done==2) {
+			System.out.println("Swop unsuccessful!! There was a clash in your timetable");
+			fileController.assignStudent(name, course);
+			fileController.assignStudent(user2, course2);
+			return;
+		}
+		done = fileController.assignStudent(user2, course);
+		if(done==2) {
+			System.out.println("Swop unsuccessful!! There was a clash in student"+user2+"'s timetable");
+			fileController.assignStudent(name, course);
+			fileController.assignStudent(user2, course2);
+			return;
+		}
+		fileController.logout(user2);
+		
 	}
 	
 	public static void logout(String name) {
