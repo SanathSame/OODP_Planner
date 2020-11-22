@@ -1,6 +1,7 @@
 package P1;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -10,11 +11,22 @@ public class adminController
 
 	public static void addStudent(){
 		
-		LocalDate edate =LocalDate.of(2021, 1, 30); 
-		LocalDate sdate =LocalDate.of(2020, 11, 01); 
+		//LocalDate edate =LocalDate.of(2021, 1, 30); 
+		//LocalDate sdate =LocalDate.of(2020, 11, 01); 
 		
 		System.out.print("Enter Student Name: ");
 		String name = scanner.nextLine();
+		char [] nameCheckArray = name.trim().toLowerCase().toCharArray();
+		
+		for (int i = 0; i<nameCheckArray.length; i++)
+		{
+			char ch = nameCheckArray[i];
+			if ((ch < 'a' || ch > 'z') && ch != ' ')
+			{
+				System.out.println("Name can only consist of characters A to Z!");
+				return;
+			}
+		}
 		
 		System.out.print("Enter Username: ");
 		String userName = scanner.next();		
@@ -28,10 +40,11 @@ public class adminController
 		System.out.print("Enter Student Email: ");
 		String Email = scanner.next();
 		
-		boolean sucess = fileController.makeStudent(name, userName, password, studentID,sdate,edate,Email);
+		boolean sucess = fileController.makeStudent(name, userName, password, studentID, Email);
 		
 		if(sucess) {
-			System.out.printf("Student %s has been added",userName);
+			System.out.printf("Student %s has been added\n",userName);
+			fileController.printAllStudents();
 			return;
 		}
 		else {
@@ -42,10 +55,10 @@ public class adminController
 	
 	public static void addCourse()
 	{
-		System.out.print("Enter Course Code: ");
+		System.out.println("Enter Course Code: ");
 		String code = scanner.nextLine();
 		
-		System.out.print("Enter Course Name: ");
+		System.out.println("Enter Course Name: ");
 		String name = scanner.nextLine();
 		
 		boolean sucess = fileController.makeCourse(code, name);
@@ -74,6 +87,11 @@ public class adminController
 		if(print == -1)
 			System.out.println("No students Registered to this course yet");
 	}
+	
+	public static void printAllStudents()
+	{
+		fileController.printAllStudents();
+	}
 
 	public static void updateCourse() {
 		System.out.println("Choose a course to update: ");
@@ -96,6 +114,7 @@ public class adminController
 					String codeNew = scanner.nextLine();
 					courseSelected.setCourseCode(codeNew);
 					System.out.println ("Course Code Changed To: " + courseSelected.getCourseCode());
+					fileController.updateCoursefile_course(courseSelected);
 					break;
 					
 				case 2: 
@@ -103,19 +122,34 @@ public class adminController
 					String nameNew = scanner.nextLine();
 					courseSelected.setCourseName(nameNew);
 					System.out.println ("Course Name Changed To: " + courseSelected.getCourseName());
+					fileController.updateCoursefile_course(courseSelected);
 					break;
 				
 				default:
 					return;
 			}
 			
-			fileController.updateCoursefile_course(courseSelected);
+			
 		}
 	}
+	
+	public static void dropCourse()
+	{
+		fileController.dropCourse();
+	}
 
+	public static void updateIndex()
+	{
+		
+		fileController.updateIndex();
+		/*
+		System.out.prinln("Choose a course whose index to update:");
+		int max = fileController.printAllCourses()
+		*/
+	}
 	public static void printVacancy() {
 		
-		System.out.println("Choose a course to check vaccancy: ");
+		System.out.println("Choose a course to check vacancy: ");
 		int max = fileController.printAllCourses();
 		System.out.println(max+1+") To go back.");
 		

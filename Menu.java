@@ -15,10 +15,13 @@ public class Menu {
 			System.out.println("2. Add Student");
 			System.out.println("3. Add Course");
 			System.out.println("4. Update Existing Course");
-			System.out.println("5. Check Vacancies Available");
-			System.out.println("6: Print Students In Index");
-			System.out.println("7: Print Students In Course");
-			System.out.println("8. Log Out");
+			System.out.println("5. Drop Course");
+			System.out.println("6. Update Existing Index");
+			System.out.println("7. Check Vacancies Available");
+			System.out.println("8: Print Students In Index");
+			System.out.println("9: Print Students In Course");
+			System.out.println("10: Print All Students");
+			System.out.println("11. Log Out");
 			while (!scanner.hasNextInt()) 
 			{
 				scanner.next();
@@ -45,18 +48,33 @@ public class Menu {
 				break;
 				
 			case 5:
-				adminController.printVacancy(); //printVacancy method copied from student Controller.
+				adminController.dropCourse();
 				break;
 				
 			case 6:
+				adminController.updateIndex();
+				break;
+				
+			case 7:
+				adminController.printVacancy(); //printVacancy method copied from student Controller.
+				break;
+				
+			case 8:
 				adminController.printIndexStudents();
 				break;
-			case 7:
+				
+			case 9:
 				adminController.printCourseStudents();
 				break;
-			case 8:
-				appclass1.login();
+				
+			case 10: 
+				adminController.printAllStudents();
 				break;
+				
+			case 11:
+				appclass1.login();
+				return;
+				
 			default:
 				System.out.println("Please enter valid option:");
 				break;
@@ -118,7 +136,7 @@ public class Menu {
 			case 10:
 				studentControler.logout(name);
 				appclass1.login();
-				break;
+				return;
 			default:
 				System.out.println("Please enter valid option:");
 				break;

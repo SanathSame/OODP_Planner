@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Student extends User{
 	
 	String student_id;
-	LocalDate accessPeriod_Start;
-	LocalDate accessPeriod_End;
+	static LocalDate accessPeriod_Start = LocalDate.of(2020, 01, 01);
+	static LocalDate accessPeriod_End = LocalDate.of(2020, 12, 31);
 	ArrayList<Index> registered_index;
 	ArrayList<Index> waitlisted_index;
 	String email;
@@ -22,11 +22,11 @@ public class Student extends User{
 		email = null;
 	}
 	
-	public Student(String name,String un,String pw, String id, LocalDate ld, LocalDate ld1,String Email) {
+	public Student(String name,String un,String pw, String id, String Email) {
 		super(name,un,pw,false);
 		student_id = id;
-		accessPeriod_Start=ld;
-		accessPeriod_End=ld1;
+		//accessPeriod_Start=ld;
+		//accessPeriod_End=ld1;
 		registered_index= new ArrayList<Index>();
 		waitlisted_index= new ArrayList<Index>();
 		email=Email;
@@ -72,19 +72,19 @@ public class Student extends User{
 		waitlisted_index=indicies;
 	}
 	
-	public LocalDate getstartDate() {
+	public static LocalDate getstartDate() {
 		return accessPeriod_Start;
 	}
 
-	public void setstartDate(LocalDate Sdate) {
+	public static void setstartDate(LocalDate Sdate) {
 		accessPeriod_Start=Sdate;
 	}
 	
-	public LocalDate getendDate() {
+	public static LocalDate getendDate() {
 		return accessPeriod_End;
 	}
 
-	public void setendDate(LocalDate Edate) {
+	public static void setendDate(LocalDate Edate) {
 		accessPeriod_End=Edate;
 	}
 	
