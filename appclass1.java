@@ -21,7 +21,7 @@ public class appclass1 {
 		else if(acc.equals("admin"))
 			Menu.adminmenu(username);
 		
-		else 
+		else if(acc.equals("incorrect"))
 			System.out.println("Incorect username or password");
 				
 	}
