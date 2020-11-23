@@ -748,6 +748,7 @@ public class fileController {
 					indexChosen.setIndex_id(newID);
 					updateStudentIndex(indexChosen,oldID);
 					courseUpdate(indexChosen,oldID);
+					System.out.println("Index ID changed to: " + indexChosen.getIndex_id());
 					break;
 					
 				case 2: 
@@ -756,6 +757,7 @@ public class fileController {
 					indexChosen.setVacancies(newVacancy);
 					updateStudentIndex(indexChosen,null);
 					courseUpdate(indexChosen,null);
+					System.out.println("Vacancies changed to: " + indexChosen.getVacancies());
 					break;
 			}
 			
@@ -1002,7 +1004,7 @@ public class fileController {
 				//System.out.println(i + "\t" + student.getName());
 				System.out.printf("%-25s %25s %n" , student.getName(), student.getStudent_id());
 			}
-			pause (5);
+			//pause (5);
 		}
 		return 0;
 	}
@@ -1031,7 +1033,7 @@ public class fileController {
 		for(String stud : students){
 			System.out.printf("%-25s %25s %n" , stud, registered.get(stud));
 		}
-		pause(5);
+		//pause(5);
 		return 0;
 	}
 
@@ -1071,7 +1073,7 @@ public class fileController {
 					
 			}
 			fileController.updateCoursefile_course(courseSelected);
-			pause (2);
+			//pause (2);
 		}
 
 		
@@ -1108,7 +1110,7 @@ public class fileController {
 		binaryio.clearwriteSerializedObject("courses.dat", courselist);
 		
 		System.out.println("Course " + courseToDrop.getCourseCode() + ", " + courseToDrop.getCourseName() + " dropped!");
-		pause (3);
+		//pause (3);
 	}
 	
 	public static void printAllStudents(){
@@ -1123,7 +1125,7 @@ public class fileController {
 			//Added: Pause for 5 seconds before going back to menu.
 			System.out.printf(" %-25s %-25s %-25s %n", stud.getName(), stud.getUsername(), stud.getStudent_id());
 		}
-		pause(5);
+		//pause(5);
 	}
 	
 
