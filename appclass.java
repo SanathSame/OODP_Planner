@@ -16,9 +16,9 @@ public class appclass {
 		//create objects and save in file
 		/*Course foo1=new Course("Cz2002","OOPD");
 		Course foo5=new Course("Cz2001","ALGO");		//binaryio.writeSerializedObject("courses.bin",foo1);*/
-		User foo2 = new Student("Ankitha","minnu","lolnoice", "k119",  ld1,  ld,"Indian", "Female", "ankithaaa");
-		User foo3 = new Student("Agnesh","agnesh","hahaokok", "uuU118",  ld1,  ld,"Singaporean", "Male", "agneshemail");
-		User foo4 = new Student("Agneshee","agneshf","hahaok", "uuU118s",  ld1,  ld, "Singaporean", "Male", "agneshiaa");
+		User foo2 = new Student("Ankitha","minnu","lolnoice", "k119",  ld1,  ld,"ankithaaa@abc.com", "Indian", "F");
+		User foo3 = new Student("Agnesh","agnesh","hahaokok", "uuU118",  ld1,  ld,"agnesh@mail.com", "Singaporean", "M");
+		User foo4 = new Student("Agneshee","agneshf","hahaok", "uuU118s",  ld1,  ld, "agneshiaa@fdss.com", "Singaporean", "M");
 		User admin1 = new Admin("Alexei", "Alex001", "oopdproject", "aaA118");
 		
 		binaryio.writeSerializedObject("users.dat", (User)foo2);
