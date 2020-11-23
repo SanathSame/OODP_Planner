@@ -10,6 +10,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -157,13 +158,13 @@ public class fileController {
 		if(indices.size()==0) {
 			return -1;
 		}
-		System.out.println("   Course Code\tIndex ID\t Waitlist\t Vacancy \tSchedule ");
+		//System.out.println("   Course Code\tIndex ID\t Waitlist\t Vacancy \tSchedule ");
+		System.out.printf("%-12s %-12s %-12s %-12s %-12s %n", "Course Code", "Index ID", "Waitlist", "Vacancy", "Schedule");
 		System.out.println("---------------------------------------------------------------------------");
 		for (int i = 0 ; i <indices.size() ; i++) {
 			Index ind  = indices.get(i);
-			System.out.println(i+1+") "+ind.getCourse_id()+"\t    \t"+ind.getIndex_id()+
-					"\t    \t"+ind.getNo_waitlist()+"\t    \t"+ind.getVacancies()+
-					"\t"+printSchedule(ind.getTimings()));
+			System.out.printf(" %-11s %-12s %-12s %-12s %-12s %n", (i+1) + ") " + ind.getCourse_id(), ind.getIndex_id(), ind.getNo_waitlist(), ind.getVacancies(), printSchedule(ind.getTimings()));
+			//System.out.println(i+1+") "+ind.getCourse_id()+"\t    \t"+ind.getIndex_id()+ "\t    \t" +ind.getNo_waitlist()+"\t    \t"+ind.getVacancies() + "\t"+printSchedule(ind.getTimings()));
 		}
 		return 0;
 	}
@@ -330,12 +331,12 @@ public class fileController {
 	public static int printAllCourses() {
 		ArrayList<Object> courses=fileController.getCourses();
 		
-		System.out.println("   Course Code\t Course Name ");
+		System.out.println(" Course Code \t \t Course Name ");
 
 		System.out.println("-------------------------------------");
 		for (int i = 0 ; i <courses.size() ; i++) {
 			Course cour  = (Course)courses.get(i);
-			System.out.println(i+1+") "+cour.getCourseCode()+"\t    "+cour.getCourseName());
+			System.out.println(i+1+") "+cour.getCourseCode()+"\t   \t "+cour.getCourseName());
 		}	
 		
 		return courses.size();
@@ -346,30 +347,28 @@ public class fileController {
 			ArrayList<Object> courses=fileController.getCourses();
 			cour=(Course)courses.get(i);
 		}
-		System.out.println("   Course Code\tIndex ID\t Waitlist\t Vacancy \tSchedule ");
+		System.out.printf("%-12s %-12s %-12s %-12s %-12s %n", "Course Code", "Index ID", "Waitlist", "Vacancy", "Schedule");
 		System.out.println("---------------------------------------------------------------------------");
 		ArrayList<Index> indices=cour.getIndices();
 		for (int j = 0 ; j <indices.size() ; j++) {
 			Index ind  = indices.get(j);
-			System.out.println(j+1+") "+ind.getCourse_id()+"\t    \t"+ind.getIndex_id()+
-					"\t    \t"+ind.getNo_waitlist()+"\t    \t"+ind.getVacancies()+
-					"\t"+printSchedule(ind.getTimings()));
+			//System.out.println(j+1+") "+ind.getCourse_id()+"\t    \t"+ind.getIndex_id()+ "\t    \t"+ind.getNo_waitlist()+"\t    \t"+ind.getVacancies()+"\t"+printSchedule(ind.getTimings()));
+			System.out.printf(" %-11s %-12s %-12s %-12s %-12s %n", (j+1) + ") " + ind.getCourse_id(), ind.getIndex_id(), ind.getNo_waitlist(), ind.getVacancies(), printSchedule(ind.getTimings()));
 		}	
 	}
 	
 	public static String[] getChangeIndex(String courseId) {
 		System.out.println("Choose Index to change: ");
 		Course cour=getCourse(courseId);
-		System.out.println("   Course Code\tIndex ID\t Waitlist\t Vacancy \tSchedule ");
+		System.out.printf("%-12s %-12s %-12s %-12s %-12s %n", "Course Code", "Index ID", "Waitlist", "Vacancy", "Schedule");
 		System.out.println("---------------------------------------------------------------------------");
 		ArrayList<Index> indices=cour.getIndices();
 		for (int j = 0 ; j <indices.size() ; j++) {
 			Index ind  = indices.get(j);
-			System.out.println(j+1+") "+ind.getCourse_id()+"\t    \t"+ind.getIndex_id()+
-					"\t    \t"+ind.getNo_waitlist()+"\t    \t"+ind.getVacancies()+
-					"\t"+printSchedule(ind.getTimings()));
+			//System.out.println(j+1+") "+ind.getCourse_id()+"\t    \t"+ind.getIndex_id()+"\t    \t"+ind.getNo_waitlist()+"\t    \t"+ind.getVacancies()+"\t"+printSchedule(ind.getTimings()));
+			System.out.printf(" %-11s %-12s %-12s %-12s %-12s %n", (j+1) + ") " + ind.getCourse_id(), ind.getIndex_id(), ind.getNo_waitlist(), ind.getVacancies(), printSchedule(ind.getTimings()));
 		}
-		System.out.println(indices.size()+1+") To go back.");
+		System.out.println(" " + (indices.size()+1) +") To go back.");
 		
 		String[] result= {"",""};
 		int choice = scanner.nextInt();
@@ -448,7 +447,7 @@ public class fileController {
 			return null;
 		}
 			
-		System.out.println(indices.size()+1+") To go back.");
+		System.out.println(" " + (indices.size()+1) +") To go back.");
 		Index ind=null;
 		int choice = scanner.nextInt();
 		String[] course= {"",""};
@@ -679,33 +678,30 @@ public class fileController {
 	}
 	
 	public static void updateCoursefile_course(Course cour) {
-			ArrayList<Object> courseDetails = getCourses();
-			Iterator<Object> courseitr = courseDetails.iterator();
-			int coursepos=0;
-			
-			while(courseitr.hasNext()){
-				Course cur  = (Course)courseitr.next();
-				if((cour.getCourseCode()).equals(cur.getCourseCode())) {
-					courseitr.remove();
-					ArrayList<Index> indices = cur.getIndices();
-					
-					Iterator<Index> indexitr = indices.iterator();
-					int indpos=0;
-					
-					while(indexitr.hasNext()){
-						Index curInd  = (Index)indexitr.next();
-						indexitr.remove();
-						curInd.setCourse_id(cour.getCourseCode());
-						updateStudentIndex(curInd,null);
-						indices.add(indpos,curInd);
-						indpos++;
-					}
-					cour.setIndices(indices);
-					courseDetails.add(coursepos,(Object)cour);
-					break;
+		ArrayList<Object> courseDetails = getCourses();
+		Iterator<Object> courseitr = courseDetails.iterator();
+		int coursepos=0;
+		
+		while(courseitr.hasNext()){
+			Course cur  = (Course)courseitr.next();
+			if((cour.getCourseCode()).equals(cur.getCourseCode()) || (cour.getCourseName()).equals(cur.getCourseName()) ) {
+				courseitr.remove();
+				
+				ArrayList<Index> indices = cur.getIndices();
+													
+				for (int i = 0; i<indices.size(); i++){
+					Index curInd  = (Index)indices.get(i);
+					indices.remove(i);
+					curInd.setCourse_id(cour.getCourseCode());
+					updateStudentIndex(curInd,null);
+					indices.add(i,curInd);
 				}
-				coursepos++;
+				cour.setIndices(indices);
+				courseDetails.add(coursepos,(Object)cour);
+				break;
 			}
+			coursepos++;
+		}
 			binaryio.clearwriteSerializedObject("courses.dat", courseDetails);		
 	}
 
@@ -796,9 +792,9 @@ public class fileController {
 		for (Schedule sch : classes) {
 			String week = getScheduleWeek(sch)!="both" ? "("+getScheduleWeek(sch)+" week)" : " ";
 			if(details.equals(""))
-				details = sch.getType()+": "+sch.getStart()+"-"+sch.getEnd()+","+ daysWeek[sch.getDayofWeek()] +week ;
+				details = sch.getType()+": "+sch.getStart()+"-"+sch.getEnd()+","+ daysWeek[sch.getDayofWeek() - 1] +week ;
 			else
-				details = details +"|\t"+ sch.getType()+": "+sch.getStart()+"-"+sch.getEnd()+","+ daysWeek[sch.getDayofWeek()] +week ;
+				details = details +"|\t"+ sch.getType()+": "+sch.getStart()+"-"+sch.getEnd()+","+ daysWeek[sch.getDayofWeek() - 1] +week ;
 		}
 				
 		return details;
@@ -972,7 +968,7 @@ public class fileController {
 		
 		ArrayList <Object> courseList = getCourses();
 		
-		System.out.print("Select Course: ");
+		System.out.println("Select Course: ");
 		printAllCourses();
 		System.out.println(courseList.size()+1+") To go back.");
 		int choice = scanner.nextInt();
@@ -980,12 +976,12 @@ public class fileController {
 		if(choice>courseList.size())
 			return 0;
 		
-		System.out.print("Select Index: ");
+		System.out.println("Select Index: ");
 		Course courseSelected = (Course) courseList.get(choice-1);
 		ArrayList <Index> indices = courseSelected.getIndices();
 		
 		printIndices(courseSelected, 0);
-		System.out.println(indices.size()+1+") To go back.");
+		System.out.println(" " + (indices.size()+1)+") To go back.");
 		int indexSelected = scanner.nextInt();
 		
 		if(indexSelected>indices.size())
@@ -998,13 +994,15 @@ public class fileController {
 			if(studentInIndex.size()==0)
 				return -1;
 			
-			int i = 1;
-			System.out.println("No \t Name\n");
+			//System.out.println("No \t Name\n");
+			System.out.printf("%-25s %25s %n", "Student Name","Student ID");
+			System.out.println("--------------------------------------------------");
 			for (Student student : studentInIndex)
 			{
-				System.out.println(i + "\t" + student.getName());
-				i++;
+				//System.out.println(i + "\t" + student.getName());
+				System.out.printf("%-25s %25s %n" , student.getName(), student.getStudent_id());
 			}
+			pause (5);
 		}
 		return 0;
 	}
@@ -1013,7 +1011,7 @@ public class fileController {
 		
 		ArrayList <Object> courseList = getCourses();
 		
-		System.out.print("Select Course: ");
+		System.out.println("Select Course: ");
 		printAllCourses();
 		System.out.println(courseList.size()+1+") To go back.");
 		int choice = scanner.nextInt();
@@ -1027,12 +1025,13 @@ public class fileController {
 		if(registered.size()==0)
 			return -1;
 		
-		System.out.println("Student Name \t Registered Index");
+		System.out.printf("%-25s %25s %n", "Student Name","Registered Index");
 		System.out.println("--------------------------------------------------");
 		Set<String> students = registered.keySet();
 		for(String stud : students){
-			System.out.println(stud+"\t"+registered.get(stud));
+			System.out.printf("%-25s %25s %n" , stud, registered.get(stud));
 		}
+		pause(5);
 		return 0;
 	}
 
@@ -1069,9 +1068,10 @@ public class fileController {
 				
 				default:
 					return;
+					
 			}
-			
 			fileController.updateCoursefile_course(courseSelected);
+			pause (2);
 		}
 
 		
@@ -1107,6 +1107,8 @@ public class fileController {
 		courselist.remove(courseSelected-1);
 		binaryio.clearwriteSerializedObject("courses.dat", courselist);
 		
+		System.out.println("Course " + courseToDrop.getCourseCode() + ", " + courseToDrop.getCourseName() + " dropped!");
+		pause (3);
 	}
 	
 	public static void printAllStudents(){
@@ -1114,15 +1116,18 @@ public class fileController {
 		ArrayList <Object> studentList = getStudents();
 		System.out.println("Student Name \t \t Username \t \t Student ID");
 		System.out.println("-----------------------------------------------------------------");
-		
 		for (Object student : studentList)
 		{
 			Student stud = (Student) student;
-			System.out.println(stud.getName() + "\t \t \t " + stud.getUsername() + "\t \t \t" + stud.getStudent_id());
+			//Fixed: Inconsistent tab issue.
+			//Added: Pause for 5 seconds before going back to menu.
+			System.out.printf(" %-25s %-25s %-25s %n", stud.getName(), stud.getUsername(), stud.getStudent_id());
 		}
+		pause(5);
 	}
+	
 
-	public static boolean isValidTime(String time) { 
+	private static boolean isValidTime(String time) { 
   
         // Regex to check valid time in 24-hour format. 
         String regex = "([01]?[0-9]|2[0-3]):[0-5][0-9]"; 
@@ -1146,5 +1151,14 @@ public class fileController {
         return m.matches(); 
     } 
 
-
+	static void pause (long durationInSeconds)
+	{
+		try 
+		{
+			TimeUnit.SECONDS.sleep(durationInSeconds);
+		} catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 }
