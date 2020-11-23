@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Menu {
 	private static Scanner scanner = new Scanner(System.in);
 	
-	public static void adminmenu (String name){
+public static void adminmenu (String name){
 		
 		int choice = 0;
 		do{
@@ -136,7 +136,7 @@ public class Menu {
 			case 10:
 				studentControler.logout(name);
 				appclass1.login();
-				return;
+				break;
 			default:
 				System.out.println("Please enter valid option:");
 				break;
