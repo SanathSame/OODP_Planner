@@ -22,36 +22,37 @@ public class User implements Serializable {
 		password = pw;
 		admin = ad;
 	}
-	
-	public String getUsername() {
-		return username;
-	}
 
-	public void setUsername(String un) {
-		 username=un;
-	}
-	
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String nam) {
-		 name=nam;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String pw) {
-		password=pw;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public boolean getAdmin() {
+
+	public boolean isAdmin() {
 		return admin;
 	}
 
-	public void setAdmin(boolean ad) {
-		admin=ad;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	
 }

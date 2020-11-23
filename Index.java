@@ -36,60 +36,70 @@ public class Index implements Serializable {
 		Waitlist=new ArrayList<Student>();
 		timings=sch;
 	}
-	
-	public String getCourseId() {
+
+	public String getCourse_id() {
 		return course_id;
 	}
-	
-	public void setCourseId(String cId) {
-		course_id=cId;
+
+	public void setCourse_id(String course_id) {
+		this.course_id = course_id;
 	}
-	
-	public String getIndexId() {
+
+	public String getIndex_id() {
 		return index_id;
 	}
-	
-	public void setIndexId(String iId) {
-		index_id=iId;
+
+	public void setIndex_id(String index_id) {
+		this.index_id = index_id;
 	}
-	
-	public ArrayList<Schedule> getSchedule() {
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public ArrayList<Schedule> getTimings() {
 		return timings;
 	}
-	
-	public void setSchdule(ArrayList<Schedule> sch) {
-		timings=sch;
+
+	public void setTimings(ArrayList<Schedule> timings) {
+		this.timings = timings;
 	}
-	
-	public int getVacancy() {
+
+	public int getVacancies() {
 		return Vacancies;
 	}
-	
-	public void setVacancy(int slots) {
-		Vacancies =slots;
+
+	public void setVacancies(int vacancies) {
+		Vacancies = vacancies;
 	}
-	
-	public int getNoWaitlist(){
-		return no_waitlist;
-	}
-	
-	public void setNoWaitlist(int wait){
-		no_waitlist=wait;
-	}
-	
+
 	public ArrayList<Student> getRegistered() {
 		return registered;
 	}
-			
-	public void setRegistered(ArrayList<Student> reg) {
-		registered=reg;
+
+	public void setRegistered(ArrayList<Student> registered) {
+		this.registered = registered;
+	}
+
+	public int getNo_waitlist() {
+		return no_waitlist;
+	}
+
+	public void setNo_waitlist(int no_waitlist) {
+		this.no_waitlist = no_waitlist;
 	}
 
 	public ArrayList<Student> getWaitlist() {
 		return Waitlist;
 	}
-	
-	public void setWaitlist(ArrayList<Student> wait) {
-		Waitlist=wait;
+
+	public void setWaitlist(ArrayList<Student> waitlist) {
+		Waitlist = waitlist;
 	}
+
+	
 }

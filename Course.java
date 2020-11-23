@@ -1,10 +1,8 @@
 package P1;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Scanner;
 
 public class Course implements Serializable{
 	//
@@ -14,6 +12,7 @@ public class Course implements Serializable{
 	String type;
 	Hashtable<String, String> registered;
 	Hashtable<String, String> Waitlist;
+	int au;
 
 	public Course() {
 		courseName=null;
@@ -22,60 +21,72 @@ public class Course implements Serializable{
 		type=null;
 		registered = new Hashtable<String, String>();
 		Waitlist = new Hashtable<String, String>();
+		au=0;
 	}
 	
-	public Course(String id,String name,ArrayList<Index> indices) {
+	public Course(String id,String name,ArrayList<Index> indices, int au) {
 		courseName=name;
 		courseCode= id;
 		registered = new Hashtable<String, String>();
 		Waitlist = new Hashtable<String, String>();
 		this.indices=indices;
+		this.au=au;
 	}
-	
-	public String getCourseName() {
-		return courseName;
-	}
-	
-	public void setCourseName(String cname) {
-		courseName=cname;
-	}
+
 	public String getCourseCode() {
 		return courseCode;
 	}
-	
-	public void setCourseCode(String ccode) {
-		courseCode=ccode;
+
+	public void setCourseCode(String courseCode) {
+		this.courseCode = courseCode;
 	}
-	
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
 	public ArrayList<Index> getIndices() {
 		return indices;
 	}
-	
-	public void setIndices(ArrayList<Index> update) {
-		indices=update;
+
+	public void setIndices(ArrayList<Index> indices) {
+		this.indices = indices;
 	}
-	
+
 	public String getType() {
 		return type;
 	}
 
-	public void setType(String typ) {
-		type=typ;
+	public void setType(String type) {
+		this.type = type;
 	}
-	
+
 	public Hashtable<String, String> getRegistered() {
 		return registered;
 	}
 
-	public void setRegistered(Hashtable<String, String> update) {
-		registered=update;
+	public void setRegistered(Hashtable<String, String> registered) {
+		this.registered = registered;
 	}
 
 	public Hashtable<String, String> getWaitlist() {
 		return Waitlist;
 	}
 
-	public void setWaitlist(Hashtable<String, String> update) {
-		Waitlist=update;
+	public void setWaitlist(Hashtable<String, String> waitlist) {
+		Waitlist = waitlist;
 	}
+
+	public int getAu() {
+		return au;
+	}
+
+	public void setAu(int au) {
+		this.au = au;
+	}
+	
 }

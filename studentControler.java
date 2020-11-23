@@ -40,6 +40,8 @@ public class studentControler {
 		else if(success==2)
 			System.out.println("Sorry!! There is a clash in your timetable for course: " 
 					+course[1]+ ", Index Id: "+course[0]);
+		
+		fileController.pause(2);
 			
 	}
 
@@ -64,12 +66,14 @@ public class studentControler {
 		int printed = fileController.printStudentIndices(name,"reg");
 		if(printed==-1)
 			System.out.println("You have not been registered to any courses yet!!!");
+		fileController.pause(2);
 	}
 
 	public static void printWaitlist(String name) {
 		int printed = fileController.printStudentIndices(name,"wait");
 		if(printed==-1)
 			System.out.println("There are no waitlisted courses to display.");
+		fileController.pause(2);
 	}
 
 	public static void printVacancy() {
@@ -83,6 +87,7 @@ public class studentControler {
 			fileController.printIndices(null,cur-1);
 		else
 			System.out.println("Back to Menu");
+		fileController.pause(2);
 	}
 	
 	public static void changeIndex(String name) {
@@ -124,6 +129,7 @@ public class studentControler {
 		String success=fileController.loginCheck(user2, pw2);
 		if(!success.equals("student")) {
 			System.out.println("Swop is not athourized!!");
+			fileController.pause(2);
 			swopIndex(name);
 		}
 		
@@ -132,6 +138,7 @@ public class studentControler {
 		
 		if(course2[0]==null) {
 			System.out.println("Student "+user2+" is not registered for the course "+course[1]);
+			fileController.pause(2);
 			return;
 		}
 		
@@ -141,6 +148,7 @@ public class studentControler {
 		int done = fileController.assignStudent(name, course2);
 		if(done==2) {
 			System.out.println("Swop unsuccessful!! There was a clash in your timetable");
+			fileController.pause(2);
 			fileController.assignStudent(name, course);
 			fileController.assignStudent(user2, course2);
 			return;
@@ -148,6 +156,7 @@ public class studentControler {
 		done = fileController.assignStudent(user2, course);
 		if(done==2) {
 			System.out.println("Swop unsuccessful!! There was a clash in student"+user2+"'s timetable");
+			fileController.pause(2);
 			fileController.assignStudent(name, course);
 			fileController.assignStudent(user2, course2);
 			return;

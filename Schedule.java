@@ -10,6 +10,7 @@ public class Schedule implements Serializable{
 	LocalTime end;
 	boolean even;
 	boolean odd;
+	String venue;
 	
 	public Schedule() {
 		type="lec";
@@ -18,63 +19,73 @@ public class Schedule implements Serializable{
 		end = null;
 		even = true;
 		odd = true;
+		venue = null;
 	}
 
-	public Schedule(String typ, int day, LocalTime st, LocalTime et, boolean e, boolean o) {
+	public Schedule(String typ, int day, LocalTime st, LocalTime et, boolean e, boolean o, String venue) {
 		type = typ;
 		DayofWeek = day;
 		start = st;
 		end = et;
 		even = e;
 		odd = o;
+		this.venue=venue;
 	}
-	
+
 	public String getType() {
 		return type;
 	}
-	
-	public void setType(String typ) {
-		type = typ;
+
+	public void setType(String type) {
+		this.type = type;
 	}
-	
+
 	public int getDayofWeek() {
 		return DayofWeek;
 	}
-	
-	public void setDayofWeek(int date) {
-		DayofWeek = date;
+
+	public void setDayofWeek(int dayofWeek) {
+		DayofWeek = dayofWeek;
 	}
-	
-	public LocalTime getStartTime() {
+
+	public LocalTime getStart() {
 		return start;
 	}
 
-	public void setStartTime(LocalTime STime) {
-		start = STime;
+	public void setStart(LocalTime start) {
+		this.start = start;
 	}
-	
-	public LocalTime getEndTime() {
+
+	public LocalTime getEnd() {
 		return end;
 	}
 
-	public void setEndTime(LocalTime ETime) {
-		end = ETime;
+	public void setEnd(LocalTime end) {
+		this.end = end;
 	}
-	
-	public boolean getisEvenWeek() {
+
+	public boolean isEven() {
 		return even;
 	}
 
-	public void setEven(boolean Evenweek) {
-		even = Evenweek;
+	public void setEven(boolean even) {
+		this.even = even;
 	}
-	
-	public boolean getisOddWeek() {
+
+	public boolean isOdd() {
 		return odd;
 	}
 
-	public void setOdd(boolean Oddweek) {
-		odd = Oddweek;
+	public void setOdd(boolean odd) {
+		this.odd = odd;
+	}
+
+	public String getVenue() {
+		return venue;
+	}
+
+	public void setVenue(String venue) {
+		this.venue = venue;
 	}
 	
 }
