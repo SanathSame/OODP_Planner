@@ -143,19 +143,9 @@ public class adminController
 		fileController.updateExistingCourse();
 	}
 
-	public static void printVacancy() {
-		
-		System.out.println("Choose a course to check vaccancy: ");
-		int max = fileController.printAllCourses();
-		System.out.println(max+1+") To go back.");
-		
-		int cur = fileController.checkValidInt();
-
-		if(cur-1<max) 
-			fileController.printIndices(null,cur-1);
-		else
-			System.out.println("Back to Menu");
-		fileController.pause(3);
+	public static void printVacancy() 
+	{
+		fileController.printVacancy();
 	}
 
 	public static void dropCourse() {

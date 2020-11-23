@@ -331,6 +331,22 @@ public class fileController {
 		return course;
 	}
 
+	public static void printVacancy() 
+	{
+		
+		System.out.println("Choose a course to check vaccancy: ");
+		int max = fileController.printAllCourses();
+		System.out.println(max+1+") To go back.");
+		
+		int cur = fileController.checkValidInt();
+
+		if(cur-1<max) 
+			fileController.printIndices(null,cur-1);
+		else
+			System.out.println("Back to Menu");
+		fileController.pause(3);
+	}
+	
 	public static int printAllCourses() {
 		ArrayList<Object> courses=fileController.getCourses();
 		
@@ -1175,7 +1191,7 @@ public class fileController {
 		}
 	}
 	
-	static int checkValidInt ()
+	private static int checkValidInt ()
 	{
 		int slot;
 		while (true)
@@ -1253,6 +1269,8 @@ public class fileController {
 		}
 		return end;
 	}
+
+
 }
 
 
