@@ -2,6 +2,7 @@ package P1;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 
 public class adminController 
@@ -72,6 +73,9 @@ public class adminController
 		if(sucess) {
 			System.out.printf("Course %s has been added.\n",code);
 			fileController.printAllCourses();
+
+			fileController.pause(5);
+
 			return;
 		}
 		else {
@@ -111,7 +115,21 @@ public class adminController
 			fileController.printIndices(null,cur-1);
 		else
 			System.out.println("Back to Menu");
+		fileController.pause(3);
+	}
+
+	public static void dropCourse() {
 		
+		fileController.dropCourse();
+	
+	}
+
+	public static void updateIndex() {
+		fileController.updateIndex();
+	}
+
+	public static void printAllStudents() {
+		fileController.printAllStudents();
 	}
 
 	public static void dropCourse() {

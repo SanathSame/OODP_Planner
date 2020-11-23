@@ -27,6 +27,12 @@ public class appclass1 {
 	}
 	
 	public static void main(String[] args) {
+		System.out.println("------------------------------------------------------------");
+		//System.out.println("                                                           |");
+		System.out.println("Welcome to MySTARS:My STudent Automated Registration System|");
+		System.out.println("A project by OODP Lab Group SE3 Group 7                    |");
+		System.out.println("Members: Agnesh,Sanath, Okka, Lulu, Wilbert                |");
+		System.out.println("------------------------------------------------------------");
 		while(true)
 			login();		
 

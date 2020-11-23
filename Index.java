@@ -100,5 +100,6 @@ public class Index implements Serializable {
 	public void setWaitlist(ArrayList<Student> waitlist) {
 		Waitlist = waitlist;
 	}
+
 	
 }
