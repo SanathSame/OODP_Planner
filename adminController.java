@@ -73,7 +73,9 @@ public class adminController
 		if(sucess) {
 			System.out.printf("Course %s has been added.\n",code);
 			fileController.printAllCourses();
+
 			fileController.pause(5);
+
 			return;
 		}
 		else {
@@ -114,6 +116,20 @@ public class adminController
 		else
 			System.out.println("Back to Menu");
 		fileController.pause(3);
+	}
+
+	public static void dropCourse() {
+		
+		fileController.dropCourse();
+	
+	}
+
+	public static void updateIndex() {
+		fileController.updateIndex();
+	}
+
+	public static void printAllStudents() {
+		fileController.printAllStudents();
 	}
 
 	public static void dropCourse() {
