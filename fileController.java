@@ -306,14 +306,15 @@ public class fileController {
 		Index ind=null;
 		String[] course= {"",""};
 		int choice = scanner.nextInt();
+
 		
 		if(choice-1<max) {
 			System.out.println("Choose an Index to register: ");
 			Course cour  = (Course)courses.get(choice-1);
 			printIndices(cour,0); 
-			System.out.println(cour.getIndices().size()+1+") To go back.");
+			System.out.println(" " + (cour.getIndices().size()+1) +") To go back.");
 			
-			choice = scanner.nextInt();
+			choice = checkValidInt();
 			
 			if(choice-1<cour.getIndices().size()) {
 				ind = cour.getIndices().get(choice-1);
@@ -321,6 +322,8 @@ public class fileController {
 				course[1]=ind.getCourse_id();
 			}
 			else
+				System.out.println("Back to previous menu");
+				pause(1);
 				getRegisterIndex();
 		}
 		else
@@ -449,7 +452,7 @@ public class fileController {
 			
 		System.out.println(" " + (indices.size()+1) +") To go back.");
 		Index ind=null;
-		int choice = scanner.nextInt();
+		int choice = checkValidInt();
 		String[] course= {"",""};
 		if(choice-1<indices.size()) {
 			ind  = indices.get(choice-1);
@@ -720,7 +723,7 @@ public class fileController {
 		System.out.println("Choose a course whose index to update:");
 		int max = printAllCourses();
 		System.out.println(max+1+") To go back.");
-		int cur = scanner.nextInt();
+		int cur = checkValidInt();
 		
 
 		if (cur-1<max) 
@@ -729,14 +732,20 @@ public class fileController {
 			
 			System.out.println("Choose index to update:");
 			fileController.printIndices(course,0);
+			System.out.println((" " + (course.getIndices().size() + 1)) + ") To go back");
 			
-			int indexToUpdate = scanner.nextInt();
+			int indexToUpdate = checkValidInt();
+			if (indexToUpdate >= course.getIndices().size())
+			{
+				System.out.println("Back To Menu");
+				return;
+			}
 			Index indexChosen = course.getIndices().get(indexToUpdate - 1);
 			System.out.println("Please select one of the options below:");
 			System.out.println("1. Change Index ID");
 			System.out.println("2. Change Vacancy");
 			
-			int choice = scanner.nextInt();
+			int choice = checkValidInt();
 			scanner.nextLine();
 			
 			switch (choice)
@@ -748,7 +757,6 @@ public class fileController {
 					indexChosen.setIndex_id(newID);
 					updateStudentIndex(indexChosen,oldID);
 					courseUpdate(indexChosen,oldID);
-					System.out.println("Index ID changed to: " + indexChosen.getIndex_id());
 					break;
 					
 				case 2: 
@@ -757,7 +765,6 @@ public class fileController {
 					indexChosen.setVacancies(newVacancy);
 					updateStudentIndex(indexChosen,null);
 					courseUpdate(indexChosen,null);
-					System.out.println("Vacancies changed to: " + indexChosen.getVacancies());
 					break;
 			}
 			
@@ -834,8 +841,8 @@ public class fileController {
 				return false;
 		}
 		
-		System.out.print("Enter day number of AUs for " + code+": ");
-		int au = scanner.nextInt();
+		System.out.print("Enter number of AUs for " + code+": ");
+		int au = checkValidInt();
 		
 		System.out.printf("Enter type for course %s (lec/lec&tut/lec,tut&lab):",code);
 		String type = scanner.next();
@@ -846,36 +853,13 @@ public class fileController {
 		}
 		
 		System.out.print("Enter day number of week for lecture of " + code+": ");
-		int lecday = scanner.nextInt();
-		while (lecday < 1 || lecday > 5)
-		{
-			System.out.println("Please enter valid day");
-			lecday = scanner.nextInt();
-		}
+		int lecday = checkValidDayOfWeek();
 		
 		System.out.printf("Enter start time for lecture (HH:MM 24Hrs):");	
-		String lecststr =scanner.next();
-		LocalTime lecst; 
-		while (!isValidTime(lecststr))
-		{
-				System.out.printf("Entry Invalid! \n Enter valid start time for lecture (HH:MM 24Hrs):");	
-				lecststr =scanner.next();
-		}
-		lecst=LocalTime.parse(lecststr);
-		
-		System.out.printf("Enter end time for lecture (HH:MM 24Hrs):");	
-		String lecetstr =scanner.next();
-		LocalTime lecet; 
-		do {
-			while (!isValidTime(lecetstr))
-			{
-					System.out.printf("Entry Invalid! \n Enter valid end time for lecture (HH:MM 24Hrs):");	
-					lecststr =scanner.next();
-			}
-			lecet=LocalTime.parse(lecetstr);
-		}while(lecet.isBefore(lecst));
-		
-		
+		LocalTime lecst = checkValidTime();
+
+		System.out.printf("Enter end time for lecture (HH:MM 24Hrs):");
+		LocalTime lecet = checkAfterStart(lecst);
 		
 		System.out.printf("Enter venue for lecture:");		
 		String lecvenue = scanner.next();
@@ -892,17 +876,20 @@ public class fileController {
 			LocalTime lecet, String lecvenue) {
 		
 		ArrayList<Index> indices = new ArrayList<Index>();
-		if(!type.equals("lec")) {
+		if(!type.equals("lec")) 
+		{	
 			System.out.printf("Enter number of indices for %s :",code);
-			int num = scanner.nextInt();
+			int num = checkValidInt();
 			
-			for(int i=1;i<=num;i++){
+			for(int i=1;i<=num;i++)
+			{
 				System.out.printf("Enter Index id for index %d",i);		
 				String index_id = scanner.next();
 									
-				System.out.printf("Enter number of vacancies for index %d",i);		
-				int slot = scanner.nextInt();
-				
+
+				System.out.printf("Enter number of vacancies for index %d",i);
+				int slot = checkValidInt();
+		
 				ArrayList<Schedule> sch= makeSchedule(index_id,type,lecday,lecst,lecet,lecvenue);	
 				indices.add(new Index(code,index_id,type, slot, sch));
 			}
@@ -911,7 +898,7 @@ public class fileController {
 		else {
 			
 			System.out.printf("Enter number of vacancies for the lecture");		
-			int slot = scanner.nextInt();
+			int slot = checkValidInt();
 			ArrayList<Schedule> sch= makeSchedule(code+"_01",type,lecday,lecst,lecet ,lecvenue);
 			indices.add(new Index(code,code+"_01",type,slot,sch));
 		
@@ -939,20 +926,25 @@ public class fileController {
 			
 			else {
 				System.out.print("Enter day number of week for "+ classtype[j]+" of " + IndID+": ");
-				day = scanner.nextInt();
+				day = checkValidDayOfWeek();
 				
 				System.out.printf("Enter start time for %s (HH:MM 24Hrs):",classtype[j]);		
-				st = LocalTime.parse(scanner.next());
+				st = checkValidTime();
 				
 				System.out.printf("Enter end time for %s (HH:MM 24Hrs):",classtype[j]);		
-				et = LocalTime.parse(scanner.next());
+				et = checkAfterStart(st);
 				
 				System.out.printf("Enter venue for %s:",classtype[j]);		
 				venue = scanner.next();
 				
 				if(j>0) {
-					System.out.printf("Enter week for %s (even/odd/both):",classtype[j]);		
+					System.out.printf("Enter week for %s (even/odd/both):",classtype[j]);
 					String evenodd = scanner.next();
+					while (!evenodd.equals("even") && !evenodd.equals("odd") && !evenodd.equals("both")) 
+					{
+						System.out.printf("Please enter valid week for %s (even/odd/both):", classtype[j]);
+						evenodd = scanner.next();
+					}
 					if(evenodd.toLowerCase().equals("even"))
 						o=false;
 					if(evenodd.toLowerCase().equals("odd"))
@@ -973,21 +965,27 @@ public class fileController {
 		System.out.println("Select Course: ");
 		printAllCourses();
 		System.out.println(courseList.size()+1+") To go back.");
-		int choice = scanner.nextInt();
+		int choice = checkValidInt();
 		
 		if(choice>courseList.size())
+		{
+			System.out.println("Back To Menu");
 			return 0;
-		
+		}
 		System.out.println("Select Index: ");
 		Course courseSelected = (Course) courseList.get(choice-1);
 		ArrayList <Index> indices = courseSelected.getIndices();
 		
 		printIndices(courseSelected, 0);
 		System.out.println(" " + (indices.size()+1)+") To go back.");
-		int indexSelected = scanner.nextInt();
+		int indexSelected = checkValidInt();
 		
 		if(indexSelected>indices.size())
+		{	
+			System.out.println("Back to previous menu");
+			pause(1);
 			showIndexStudents();
+		}
 		
 		else {
 			Index chosenIndex = indices.get(indexSelected-1);
@@ -1004,7 +1002,7 @@ public class fileController {
 				//System.out.println(i + "\t" + student.getName());
 				System.out.printf("%-25s %25s %n" , student.getName(), student.getStudent_id());
 			}
-			//pause (5);
+			pause (5);
 		}
 		return 0;
 	}
@@ -1016,10 +1014,13 @@ public class fileController {
 		System.out.println("Select Course: ");
 		printAllCourses();
 		System.out.println(courseList.size()+1+") To go back.");
-		int choice = scanner.nextInt();
+		int choice = checkValidInt();
 		
 		if(choice>courseList.size())
+		{
+			System.out.println("Back to Menu");
 			return 0;
+		}
 		
 		Course courseSelected = (Course) courseList.get(choice-1);
 		
@@ -1033,7 +1034,7 @@ public class fileController {
 		for(String stud : students){
 			System.out.printf("%-25s %25s %n" , stud, registered.get(stud));
 		}
-		//pause(5);
+		pause(5);
 		return 0;
 	}
 
@@ -1042,19 +1043,20 @@ public class fileController {
 		System.out.println("Choose a course to update: ");
 		int max = fileController.printAllCourses();
 		System.out.println(max+1+") To go back.");
-		int cur = scanner.nextInt();
+		int cur = checkValidInt();
 		if (cur-1 < max){
 			
 			Course courseSelected = (Course) fileController.getCourses().get(cur-1);
 			System.out.println("Please select one of the options below:");
-			System.out.println("1. Edit Course Code");
-			System.out.println("2. Edit Course Name");
-			int choice = scanner.nextInt();
+			System.out.println("1) Edit Course Code");
+			System.out.println("2) Edit Course Name");
+			System.out.println("3) To go back");
+			int choice = checkValidInt();
 			scanner.nextLine();
-			System.out.println("----------Making Changes to " + courseSelected.getCourseCode() + " " + courseSelected.getCourseName() + "----------");
 			switch (choice)
 			{
 				case 1:
+					System.out.println("----------Making Changes to " + courseSelected.getCourseCode() + " " + courseSelected.getCourseName() + "----------");
 					System.out.println("Enter New Course Code:");
 					String codeNew = scanner.nextLine();
 					courseSelected.setCourseCode(codeNew);
@@ -1062,6 +1064,7 @@ public class fileController {
 					break;
 					
 				case 2: 
+					System.out.println("----------Making Changes to " + courseSelected.getCourseCode() + " " + courseSelected.getCourseName() + "----------");
 					System.out.println("Enter New Course Name:");
 					String nameNew = scanner.nextLine();
 					courseSelected.setCourseName(nameNew);
@@ -1069,22 +1072,32 @@ public class fileController {
 					break;
 				
 				default:
+					System.out.println("Back To Menu");
 					return;
 					
 			}
 			fileController.updateCoursefile_course(courseSelected);
-			//pause (2);
+
 		}
 
-		
+		else 
+		{
+			System.out.println("Back To Menu");
+		}
 	}
 	
 	public static void dropCourse(){
 		
 		System.out.println("Select course to drop");
 		printAllCourses();
-		int courseSelected = scanner.nextInt();
+		System.out.println((getCourses().size()+1) + ") To go back");
+		int courseSelected = checkValidInt();
 		ArrayList<Object> courselist = getCourses();
+		if (courseSelected >= courselist.size())
+		{
+			System.out.println("Back to Menu");
+			return;
+		}
 		Course courseToDrop = (Course) courselist.get(courseSelected-1);
 		
 		Hashtable<String,String> registered = courseToDrop.getRegistered();
@@ -1110,7 +1123,7 @@ public class fileController {
 		binaryio.clearwriteSerializedObject("courses.dat", courselist);
 		
 		System.out.println("Course " + courseToDrop.getCourseCode() + ", " + courseToDrop.getCourseName() + " dropped!");
-		//pause (3);
+		pause (3);
 	}
 	
 	public static void printAllStudents(){
@@ -1121,11 +1134,9 @@ public class fileController {
 		for (Object student : studentList)
 		{
 			Student stud = (Student) student;
-			//Fixed: Inconsistent tab issue.
-			//Added: Pause for 5 seconds before going back to menu.
 			System.out.printf(" %-25s %-25s %-25s %n", stud.getName(), stud.getUsername(), stud.getStudent_id());
 		}
-		//pause(5);
+		pause(5);
 	}
 	
 
@@ -1163,4 +1174,85 @@ public class fileController {
 			e.printStackTrace();
 		}
 	}
+	
+	static int checkValidInt ()
+	{
+		int slot;
+		while (true)
+		{
+			try 
+			{
+				slot = scanner.nextInt();
+				if (slot < 1)
+				{
+					throw new ArithmeticException();
+				}
+				else
+				{
+					break;
+				}
+			}
+			catch (Exception e)
+			{
+				System.out.println("Please Enter A Valid Number!");
+				scanner.nextLine();
+			}
+		}
+		
+		return slot;
+	}
+	
+	private static int checkValidDayOfWeek ()
+	{
+		int slot;
+		while (true)
+		{
+			try 
+			{
+				slot = scanner.nextInt();
+				if (slot < 1 || slot > 5)
+				{
+					throw new ArithmeticException();
+				}
+				else
+				{
+					break;
+				}
+			}
+			catch (Exception e)
+			{
+				System.out.println("Please Enter A Valid Number Between 1 (Monday) and 5 (Friday)!");
+				scanner.nextLine();
+			}
+		}
+		
+		return slot;
+	}
+	
+	private static LocalTime checkValidTime()
+	{
+		String timeInput =scanner.next();
+		LocalTime time; 
+		while (!isValidTime(timeInput))
+		{
+				System.out.printf("Entry Invalid! \n Enter valid time (HH:MM 24Hrs):");	
+				timeInput =scanner.next();
+		}
+		time=LocalTime.parse(timeInput);
+		return time;
+	}
+	
+	private static LocalTime checkAfterStart(LocalTime start)
+	{
+		LocalTime end = checkValidTime();
+		while (end.isBefore(start))
+		{
+			System.out.println("End Time Cannot Be Earlier Than Start Time!");
+			System.out.print("Enter valid end time (HH:MM 24Hrs): ");
+			end = checkValidTime();
+		}
+		return end;
+	}
 }
+
+
