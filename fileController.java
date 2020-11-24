@@ -42,7 +42,7 @@ public class fileController {
 	}
 
 //---------------User Function-----------------------
-	public static String hash(String string_Encrypt) {
+	private static String hash(String string_Encrypt) {
 		/**
 		* Hashes the input string using SHA-256 algorithm
 		* @param string_Encrypt The string to encrypt (the password in this case)
