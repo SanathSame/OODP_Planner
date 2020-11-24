@@ -18,7 +18,7 @@ public class fileController {
 	private static Scanner scanner = new Scanner(System.in);
 	
 //----------------Get info about user--------------------- 
-	public static ArrayList<Object> getUsers() {
+	private static ArrayList<Object> getUsers() {
 		ArrayList<Object> UsersDetails = binaryio.readSerializedObject("users.dat");
 		return UsersDetails;
 	}
@@ -69,12 +69,12 @@ public class fileController {
 
 //----------------Get info about student------------------- 
 	
-	public static ArrayList<Object> getStudents() {
+	private static ArrayList<Object> getStudents() {
 		ArrayList<Object> StudentsDetails = binaryio.readSerializedObject("students.dat");
 		return StudentsDetails;
 	}
 	
-	public static Student getStudent(String un) {
+	private static Student getStudent(String un) {
 		ArrayList<Object> StudentDetails = getStudents();
 		
 		if(StudentDetails.size()==0) {
@@ -282,12 +282,12 @@ public class fileController {
 	
 //----------------Get info about courses----------------------
 
-	public static ArrayList<Object> getCourses() {
+	private static ArrayList<Object> getCourses() {
 		ArrayList<Object> courses=binaryio.readSerializedObject("courses.dat");
 		return courses;
 	}
 	
-	public static Course getCourse(String courseId) {
+	private static Course getCourse(String courseId) {
 		ArrayList<Object> courseDetails = getCourses();
 		
 		if(courseDetails.size()==0) {
@@ -306,7 +306,7 @@ public class fileController {
 	}
 
 //--------------------Change Course Attributes---------------
-	public static void addStudenttoCourse(Student name,Index ind) {
+	private static void addStudenttoCourse(Student name,Index ind) {
 		Course cour = getCourse(ind.getCourse_id());
 		Hashtable<String, String> update = cour.getRegistered();
 		update.put(name.getUsername(), ind.getIndex_id());
@@ -314,7 +314,7 @@ public class fileController {
 		updateCoursefile_course(cour);
 	}
 	
-	public static void addStudenttoWaitlist(Student name, Index ind) {
+	private static void addStudenttoWaitlist(Student name, Index ind) {
 		Course cour = getCourse(ind.getCourse_id());
 		Hashtable<String, String> update = cour.getWaitlist();
 		update.put(name.getUsername(), ind.getIndex_id());
@@ -322,7 +322,7 @@ public class fileController {
 		updateCoursefile_course(cour);
 	}
 
-	public static void courseRemoveStudent(Student name, Index ind) {
+	private static void courseRemoveStudent(Student name, Index ind) {
 		Course cour = getCourse(ind.getCourse_id());
 		Hashtable<String, String> update = cour.getRegistered();
 		update.remove(name.getUsername());
@@ -330,7 +330,7 @@ public class fileController {
 		updateCoursefile_course(cour);
 	}
 
-	public static void removeCourseWait(Student wait, Index ind) {
+	private static void removeCourseWait(Student wait, Index ind) {
 		Course cour = getCourse(ind.getCourse_id());
 		Hashtable<String, String> update = cour.getWaitlist();
 		update.remove(wait.getUsername());
@@ -403,7 +403,7 @@ public class fileController {
 		System.out.println("+-------------------------------------+");
 		for (int i = 0 ; i <courses.size() ; i++) {
 			Course cour  = (Course)courses.get(i);
-			System.out.println(i+1+") "+cour.getCourseCode()+"\t   \t\t "+cour.getCourseName());
+			System.out.println(i+1+") "+cour.getCourseCode()+"\t      \t "+cour.getCourseName());
 		}	
 		
 		return courses.size();
@@ -704,7 +704,7 @@ public class fileController {
 		binaryio.clearwriteSerializedObject("courses.dat", courseDetails);		
 	}
 	
-	public static void courseStudentUpdate(Student name) {
+	private static void courseStudentUpdate(Student name) {
 		Course cur=null;
 		ArrayList<Object> courseDetails = getCourses();		
 		String Username =name.getUsername();		
@@ -785,7 +785,7 @@ public class fileController {
 		binaryio.clearwriteSerializedObject("courses.dat", courseDetails);		
 	}
 	
-	public static void updateCoursefile_course(Course cour) {
+	private static void updateCoursefile_course(Course cour) {
 		ArrayList<Object> courseDetails = getCourses();
 		Iterator<Object> courseitr = courseDetails.iterator();
 		int coursepos=0;
@@ -815,7 +815,7 @@ public class fileController {
 
 //====================================================================================================================
 //-----------------Index info-----------------------------------------
-	public static Index findIndex(Course cur, String indId) {
+	private static Index findIndex(Course cur, String indId) {
 		ArrayList<Index> indices = cur.getIndices();
 		for(Index nxt : indices)
 			if(nxt.getIndex_id().equals(indId))
