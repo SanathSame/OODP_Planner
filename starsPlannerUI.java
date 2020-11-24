@@ -3,11 +3,22 @@ package P1;
 import java.io.Console;
 import java.util.Scanner;
 
-
+/**
+ * 
+ * Represents a main boundary class, starsPlannerUI for users to interact with the application.
+ *
+ */
 
 public class starsPlannerUI{
-	static Scanner input = new Scanner(System.in);
+	/**
+	 * Scanner object to read inputs from user.
+	 */
+	private static Scanner input = new Scanner(System.in);
 	
+	/**
+	 * For user login. Asks user for username and password, check if they are authorized to use the system.
+	 * If authorized, need them to respective menus.
+	*/
 	public static void login() {
 		System.out.print("Enter Username: ");
 		String username= input.next();
@@ -37,8 +48,11 @@ public class starsPlannerUI{
 				
 	}
 	
-	
-	
+	/**
+	 * Main program method.Displays the welcome message and calls the login function.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		System.out.println("------------------------------------------------------------");
 		System.out.println("|                                                           |");

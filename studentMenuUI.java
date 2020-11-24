@@ -3,10 +3,25 @@ package P1;
 import java.io.Console;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-
+/**
+ * A boundary class used to display menu to the student user.
+ * Implements menuUI interface
+ * 
+ */
 public class studentMenuUI implements menuUI {
+	/**
+	 * Scanner object used to get input from user.
+	 * 
+	 */
 	private static Scanner scanner = new Scanner(System.in);
-
+	
+	/**
+	 * Public method called from starsPlannerUI to display student menu.
+	 * If the student's access is open, the functions displays a list of options the student can choose from,
+	 * uses a switch statement to determine the user choice input    
+	 * 
+	 * @param username : username of the student who logged in to the application
+	 */
 	public void displayMenu(String username) {
 		
 		if(!studentController.isAccessPeriod(username))
@@ -154,8 +169,12 @@ public class studentMenuUI implements menuUI {
 		} while (true);
 	}
 	
-	private static void pause (long durationInSeconds)
-	{
+	/**
+	 * private static method used inside this class to pause the program for a few seconds before next display. 
+	 * 
+	 * @param durationInSeconds : the number of seconds the program pauses
+	 */
+	private static void pause (long durationInSeconds){
 		try 
 		{
 			TimeUnit.SECONDS.sleep(durationInSeconds);

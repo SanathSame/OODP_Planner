@@ -3,9 +3,25 @@ package P1;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * A boundary class used to display menu to the administrator user.
+ * Implements menuUI interface
+ * 
+ */
 public class adminMenuUI implements menuUI{
+	/**
+	 * Scanner object used to get input from user.
+	 * 
+	 */
 	private static Scanner scanner = new Scanner(System.in);
 
+	/**
+	 * Public method called from starsPlannerUI to display administrator options.
+	 * This function is dynamically called if an administrator logs in, as it overrides 
+	 * the displayMenu function in menuUI.
+	 * 
+	 * @param username : username of the administrator who logged in to the application
+	 */
 	public void displayMenu(String username){
 		int choice = 0;
 		do{
@@ -100,8 +116,12 @@ public class adminMenuUI implements menuUI{
 		} while (true);
 	}
 	
-	private static void pause (long durationInSeconds)
-	{
+	/**
+	 * private static method used inside this class to pause the program for a few seconds before next display. 
+	 * 
+	 * @param durationInSeconds : the number of seconds the program pauses
+	 */
+	private static void pause (long durationInSeconds){
 		try 
 		{
 			TimeUnit.SECONDS.sleep(durationInSeconds);

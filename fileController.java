@@ -348,7 +348,7 @@ public class fileController {
 		System.out.print("====>Enter choice: ");
 		Index ind=null;
 		String[] course= {"",""};
-		int choice = scanner.checkValidInt();
+		int choice = checkValidInt();
 
 		
 		if(choice-1<max) {
@@ -443,7 +443,7 @@ public class fileController {
 		System.out.print("====>Enter choice: ");
 		
 		String[] result= {"",""};
-		int choice = scanner.checkValidInt();
+		int choice = checkValidInt();
 		
 		if(choice-1<indices.size())  {
 			Index ind=indices.get(choice-1);
@@ -580,8 +580,8 @@ public class fileController {
 
 	private static void assignWaitlistStudent(Index ind) {
 		ArrayList<Student> waitlist = ind.getWaitlist();
-		int success;
-		do{
+		int success=1;
+		while((success!=0 && waitlist.size()!=0) ||( ind.getVacancies()!=0 && waitlist.size()!=0)){
 			Student wait=waitlist.get(0);
 
 			removewait(wait,ind);
@@ -621,7 +621,7 @@ public class fileController {
 			}
 			NotificationController.sendEmail(message);
 
-		}while(success!=0 && waitlist.size()!=0 && ind.getVacancies()!=0);
+		}
 		
 	}
 
