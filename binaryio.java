@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- * A boundary class used to store and retrieve entity class objects to and from the files used.
+ * A boundary/controller class used to store and retrieve entity class objects to and from the files used.
  * Uses the methods readObject and writeObject of the ObjectInputStream and ObjectOutputStream classes respectively.
  * 
  */
