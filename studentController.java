@@ -3,7 +3,6 @@ package P1;
 import java.util.Scanner;
 
 public class studentController {
-	private static Scanner scanner = new Scanner(System.in);
 
 	public static boolean isAccessPeriod(String name) {
 		int out = fileController.StudentAccessPeriod(name);
@@ -54,7 +53,7 @@ public class studentController {
 			return;
 		System.out.println("Are you sure want to drop index "+ course[0] +
 				" of Course "+ course[1]+ " (yes/no)?");
-		
+		Scanner scanner = new Scanner(System.in);
 		String cnfm = scanner.next();
 			
 		if(cnfm.toLowerCase().equals("yes")) {
@@ -81,7 +80,7 @@ public class studentController {
 		int max = fileController.printAllCourses();
 		System.out.println(max+1+") To go back.");
 		System.out.print("====>Enter choice: ");
-		
+		Scanner scanner = new Scanner(System.in);
 		int cur = scanner.nextInt();
 
 		if(cur-1<max) 
@@ -119,7 +118,7 @@ public class studentController {
 		String[] course=fileController.getDropIndex(name);
 		if(course[0].equals(""))
 			return;
-		
+		Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter Student Username to swop Index : ");
 		String user2 = scanner.next();
 		
@@ -172,8 +171,5 @@ public class studentController {
 	public static void logout(String name) {
 		fileController.logout(name);
 	}
-
-
-		
 	
 }
