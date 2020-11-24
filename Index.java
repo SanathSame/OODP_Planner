@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Index implements Serializable {
-	String course_id;
-	String index_id;
-	String type;
-	ArrayList <Schedule> timings=new ArrayList<Schedule>();
-	int Vacancies;
-	ArrayList <Student> registered;
-	int no_waitlist;
-	ArrayList <Student> Waitlist;
+	private String course_id;
+	private String index_id;
+	private String type;
+	private ArrayList <Schedule> timings=new ArrayList<Schedule>();
+	private int Vacancies;
+	private ArrayList <Student> registered;
+	private int no_waitlist;
+	private ArrayList <Student> Waitlist;
 
 	public Index() {
 		course_id=null;
@@ -34,7 +34,13 @@ public class Index implements Serializable {
 		no_waitlist=0;
 		registered=new ArrayList<Student>();
 		Waitlist=new ArrayList<Student>();
-		timings=sch;
+		
+		for(Schedule lesson : sch) {
+			Schedule newLesson=new Schedule();
+			newLesson=lesson;
+			this.timings.add(newLesson);
+		}
+		
 	}
 
 	public String getCourse_id() {

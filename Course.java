@@ -6,13 +6,13 @@ import java.util.Hashtable;
 
 public class Course implements Serializable{
 	//
-	String courseCode;
-	String courseName;
-	ArrayList <Index> indices=new ArrayList<Index>();
-	String type;
-	Hashtable<String, String> registered;
-	Hashtable<String, String> Waitlist;
-	int au;
+	private String courseCode;
+	private String courseName;
+	private ArrayList <Index> indices=new ArrayList<Index>();
+	private String type;
+	private Hashtable<String, String> registered;
+	private Hashtable<String, String> Waitlist;
+	private int au;
 
 	public Course() {
 		courseName=null;
@@ -29,7 +29,13 @@ public class Course implements Serializable{
 		courseCode= id;
 		registered = new Hashtable<String, String>();
 		Waitlist = new Hashtable<String, String>();
-		this.indices=indices;
+		
+		for(Index index : indices) {
+			Index ind=new Index();
+			ind=index;
+			this.indices.add(ind);
+		}
+		
 		this.au=au;
 	}
 

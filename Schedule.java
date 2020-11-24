@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.time.LocalTime;
 
 public class Schedule implements Serializable{
-	String type;
-	int DayofWeek;
-	LocalTime start;
-	LocalTime end;
-	boolean even;
-	boolean odd;
-	String venue;
+	private String type;
+	private int DayofWeek;
+	private LocalTime start;
+	private LocalTime end;
+	private boolean even;
+	private boolean odd;
+	private String venue;
 	
 	public Schedule() {
 		type="lec";

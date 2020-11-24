@@ -1,5 +1,6 @@
 package P1;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -7,6 +8,69 @@ public class adminController
 {
 	private static Scanner scanner = new Scanner (System.in);
 
+	public static void setAccessPeriod() {
+		System.out.println("Please select one of the options below:");
+		System.out.println("1. Change access period for all Students");
+		System.out.println("2. Change access period for one students");
+		System.out.println("3. Back to Menu");
+		
+		int choice = fileController.checkValidInt();
+		
+		LocalDate startDate=LocalDate.of(2021, 1, 30); 
+		LocalDate endDate = LocalDate.of(2021, 1, 30);
+		if (choice>2)
+			return;
+		
+		boolean done=false;
+		while (!done) {
+			System.out.print("Enter start of access period (YYYY-MM-DD): ");
+			try {
+				done=true;
+				startDate = LocalDate.parse(scanner.nextLine()); 
+			}
+			catch(DateTimeException e) {
+				done=false;
+			}
+			if(startDate.isBefore(LocalDate.now())) {
+				System.out.println("Invalid entry!! Entered start date is before today.");
+				done =false;
+			}
+		}
+		
+		done=false;
+		while (!done) {
+			System.out.print("Enter end of access period (YYYY-MM-DD): ");
+			try {
+				done=true;
+				endDate = LocalDate.parse(scanner.nextLine()); 
+			}
+			catch(DateTimeException e) {
+				done=false;
+			}
+			if(endDate.isBefore(startDate)) {
+				System.out.println("Invalid entry!! Entered end date is before start date.");
+				done =false;
+			}
+		}
+		
+		switch (choice) {
+			case 1:
+				fileController.updateStudentAccess("",startDate,endDate);
+				System.out.println("Access period of all the Students has been updated");
+				break;
+			case 2:
+				System.out.print("Enter student username to change access period:");
+				String username = scanner.next();
+				if(fileController.updateStudentAccess(username, startDate, endDate))
+					System.out.println("Access period of Student "+ username +" has been updated");
+				else
+					System.out.println("Incorrect username!!!");
+				break;
+			default: 
+				return;
+		}
+	}
+	
 	public static void addStudent(){
 		
 		LocalDate edate =LocalDate.of(2021, 1, 30); 
@@ -42,7 +106,7 @@ public class adminController
 		String gender;
 		while (true)
 		{
-			System.out.print("Enter Student Gender: ");
+			System.out.print("Enter Student Gender (M/F): ");
 			gender = scanner.nextLine();
 			if (gender.equals("M") || gender.equals("F"))
 			{
@@ -115,7 +179,6 @@ public class adminController
 		if(sucess) {
 			System.out.printf("Course %s has been added.\n",code);
 			fileController.printAllCourses();
-			fileController.pause(5);
 			return;
 		}
 		else {
@@ -161,4 +224,6 @@ public class adminController
 	public static void printAllStudents() {
 		fileController.printAllStudents();
 	}
+
+	
 }

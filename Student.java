@@ -4,17 +4,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Student extends User{
-	
-	String student_id;
-	LocalDate accessPeriod_Start;
-	LocalDate accessPeriod_End;
-	ArrayList<Index> registered_index;
-	ArrayList<Index> waitlisted_index;
-	String nationality;
-	String gender;
-	String email;
-	
+
 	static final int maxAU=22;
+	
+	private String student_id;
+	private LocalDate accessPeriod_Start;
+	private LocalDate accessPeriod_End;
+	private ArrayList<Index> registered_index;
+	private ArrayList<Index> waitlisted_index;
+	private String nationality;
+	private String gender;
+	private String email;
+	private int registeredAU;
+	
 	
 	public Student() {
 		super(null,null,null,false);
@@ -26,6 +28,7 @@ public class Student extends User{
 		nationality=null;
 		gender=null;
 		email = null;
+		registeredAU=0;
 	}
 	
 	public Student(String name,String un,String pw, String id, LocalDate ld, LocalDate ld1,
@@ -39,6 +42,7 @@ public class Student extends User{
 		nationality = nation;
 		gender=gen;
 		email=Email;
+		registeredAU=0;
 	}
 
 	public String getStudent_id() {
@@ -107,6 +111,14 @@ public class Student extends User{
 
 	public static int getMaxau() {
 		return maxAU;
+	}
+
+	public int getRegisteredAU() {
+		return registeredAU;
+	}
+
+	public void setRegisteredAU(int registeredAU) {
+		this.registeredAU = registeredAU;
 	}
 	
 }

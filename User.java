@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 
 public class User implements Serializable {
-	String name;
-	String username;
-	String password;
-	boolean admin;
+	protected String name;
+	protected String username;
+	protected String password;
+	private boolean admin;
 	
 	public User() {
 		name=null;

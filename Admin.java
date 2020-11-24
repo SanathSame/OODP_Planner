@@ -2,7 +2,7 @@ package P1;
 
 public class Admin extends User
 {
-	String admin_id;
+	private String admin_id;
 	
 	public Admin() 
 	{
