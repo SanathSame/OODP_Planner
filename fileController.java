@@ -181,12 +181,12 @@ public class fileController {
 		LocalDate ED = stud.getAccessPeriod_End();
 		LocalDate today = LocalDate.now();
 		
-		if (today.isAfter(SD) && today.isBefore(ED))
+		if ((today.isAfter(SD) && today.isBefore(ED)) || today.isEqual(ED)||today.isEqual(SD) )
 			return 0;
 		else if(today.isAfter(ED))
-			return 1;
-		else
 			return -1;
+		else
+			return 1;
 	}
 
 	public static int printStudentIndices(String username,String WaitReg) {
