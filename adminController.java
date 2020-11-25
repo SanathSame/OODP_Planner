@@ -47,10 +47,6 @@ public class adminController
 			catch(DateTimeException e) {
 				done=false;
 			}
-			if(endDate.isBefore(startDate)) {
-				System.out.println("Invalid entry!! Entered end date is before start date.");
-				done =false;
-			}
 		}
 		
 		switch (choice) {
