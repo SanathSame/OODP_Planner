@@ -26,10 +26,10 @@ public class starsPlannerUI{
 		System.out.print("Enter password: ");
 		String password;
 		Console console = System.console(); 
-        	if (console == null) 
-            		password = input.next();
-        	else
-        		password=new String(console.readPassword());
+        if (console == null) 
+            password = input.next();
+        else
+        	password=new String(console.readPassword());
 		
 		String acc = fileController.loginCheck(username, password);
 		

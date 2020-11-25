@@ -1,7 +1,6 @@
 package P1;
 
 import java.util.Scanner;
-import java.utl.Console;
 
 public class studentController {
 
@@ -59,8 +58,6 @@ public class studentController {
 			
 		if(cnfm.toLowerCase().equals("yes")) {
 			fileController.unAssignStudent(name,course,"drop");
-			System.out.println("The index has been removed from your timetable");
-
 		}
 		else
 			dropCourse(name);
@@ -126,12 +123,7 @@ public class studentController {
 		String user2 = scanner.next();
 		
 		System.out.print("Enter Student Password to swop Index : ");
-		String pw;
-		Console console = System.console(); 
-        	if (console == null) 
-           		pw = input.next();
-        	else
-        		pw=new String(console.readPassword());
+		String pw2 = scanner.next();
 		
 		String authourize=fileController.loginCheck(user2, pw2);
 		if(!authourize.equals("student")) {

@@ -564,6 +564,7 @@ public class fileController {
 		ind.setVacancies(ind.getVacancies()+1);
 		
 		student.setRegisteredAU(student.getRegisteredAU() - cour.getAu());
+		System.out.println("The index has been removed from your timetable");
 		
 		if(ind.getNo_waitlist()>0 && swop.equals("drop")) {
 			assignWaitlistStudent(ind);
