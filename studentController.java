@@ -58,6 +58,8 @@ public class studentController {
 			
 		if(cnfm.toLowerCase().equals("yes")) {
 			fileController.unAssignStudent(name,course,"drop");
+			System.out.println("The index has been removed from your timetable");
+
 		}
 		else
 			dropCourse(name);
