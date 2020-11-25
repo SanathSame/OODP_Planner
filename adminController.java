@@ -31,10 +31,6 @@ public class adminController
 			catch(DateTimeException e) {
 				done=false;
 			}
-			if(startDate.isBefore(LocalDate.now())) {
-				System.out.println("Invalid entry!! Entered start date is before today.");
-				done =false;
-			}
 		}
 		
 		done=false;
